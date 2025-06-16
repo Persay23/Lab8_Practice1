@@ -1,21 +1,30 @@
-﻿Console.WriteLine("Hello, World");
+﻿using Mathematica;
 
-public class Integrator
+var x = new Integrator();
+
+
+Console.WriteLine(x.Integrate(0, 1, 0.01, x => x * x));
+
+Console.WriteLine(x.Integrate(0, 1, 0.01, x => Math.Sin(x)));
+
+return;
+namespace Mathematica
 {
-    public double Integrate()
+    public class Integrator
     {
-        var start = 0.0;
-        var end = 1.0;
-        var step = 0.1;
-
-        var sum = 0.0;
-
-        for (var x = start; x < end; x += step)
+        public double Integrate(double start, double end, double step, Func<double, double> function)
         {
-            var y = x * x;
-            sum += y * step;
-        }
+            var sum = 0.0;
 
-        return sum;
+            for (var x = start; x < end; x += step)
+            {
+                var y = function(x);
+
+                sum += y * step;
+            }
+
+            return sum;
+        }
     }
+
 }
